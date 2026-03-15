@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maya's Imposter Game - Find the Imposter!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-icon">🎭</span>
+        <span class="logo-text">Maya's <span class="accent">Imposter Game</span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#" class="nav-link active" data-screen="home">Home</a></li>
+        <li><a href="#" class="nav-link" data-screen="howto">How to Play</a></li>
+        <li><a href="#" class="nav-cta" data-screen="setup">Play Now</a></li>
+      </ul>
+      <button class="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="#" class="mobile-link" data-screen="home">Home</a>
+    <a href="#" class="mobile-link" data-screen="howto">How to Play</a>
+    <a href="#" class="mobile-link" data-screen="setup">Play Now</a>
+  </div>
+
+  <main id="app">
+    <!-- Home Screen -->
+    <section id="home-screen" class="screen active">
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-badge">Happy Birthday Maya! 🎉</div>
+          <h1 class="hero-title">
+            Find the <span class="gradient-text">Imposter</span><br>
+            Before It's Too Late
+          </h1>
+          <p class="hero-subtitle">
+            A thrilling social deduction game where everyone knows a secret word... except the imposter. Can you spot the liar?
+          </p>
+          <div class="hero-buttons">
+            <button class="btn-main" data-screen="setup">
+              <span class="btn-icon">🎮</span>
+              Start Playing
+            </button>
+            <button class="btn-secondary-modern" data-screen="howto">
+              <span class="btn-icon">❓</span>
+              Learn Rules
+            </button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-number">3-12</span>
+              <span class="stat-label">Players</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">5-15</span>
+              <span class="stat-label">Minutes</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">360+</span>
+              <span class="stat-label">Words</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="floating-card card-1">
+            <span>👤</span>
+          </div>
+          <div class="floating-card card-2">
+            <span>🎭</span>
+          </div>
+          <div class="floating-card card-3">
+            <span>❓</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="features-section">
+        <h2 class="section-title">How It Works</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h3>Gather Friends</h3>
+            <p>3-12 players gather around one device. Add everyone's names to begin.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔐</div>
+            <h3>Secret Words</h3>
+            <p>Most players get the same word. The imposter gets a different one!</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💡</div>
+            <h3>Give Clues</h3>
+            <p>Each player gives one-word clues about their word without revealing it.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🗳️</div>
+            <h3>Vote & Win</h3>
+            <p>Discuss, vote to eliminate suspects. Civilians win if imposters found!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Play Screen -->
+    <section id="howto-screen" class="screen">
+      <div class="page-header">
+        <h1 class="page-title">How to Play</h1>
+        <p class="page-subtitle">Master the game in 5 simple steps</p>
+      </div>
+      <div class="rules-container">
+        <div class="rules-timeline">
+          <div class="rule-card">
+            <div class="rule-number">01</div>
+            <div class="rule-content">
+              <h3>Create Your Game</h3>
+              <p>Add 3-12 players, choose a category (Animals, Food, Movies, etc.), and set the number of imposters.</p>
+            </div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-number">02</div>
+            <div class="rule-content">
+              <h3>Get Your Role</h3>
+              <p>Each player takes a turn secretly viewing their word on the screen. Tap to reveal!</p>
+            </div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-number">03</div>
+            <div class="rule-content">
+              <h3>Give Clues</h3>
+              <p>Players take turns giving ONE-word clues about their secret word. Be clever but don't give it away!</p>
+            </div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-number">04</div>
+            <div class="rule-content">
+              <h3>Discussion Time</h3>
+              <p>Talk with other players. Use the clues to figure out who doesn't know the real word.</p>
+            </div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-number">05</div>
+            <div class="rule-content">
+              <h3>Vote & Win</h3>
+              <p>Vote to eliminate who you think is the imposter. Civilians win if all imposters are found!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cta-section">
+        <button class="btn-main" data-screen="setup">Start Playing Now →</button>
+      </div>
+    </section>
+
+    <!-- Setup Screen -->
+    <section id="setup-screen" class="screen">
+      <div class="page-header">
+        <h1 class="page-title">Setup Your Game</h1>
+        <p class="page-subtitle">Configure your perfect game</p>
+      </div>
+      
+      <div class="setup-container">
+        <div class="card-modern">
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-icon">📁</span>
+              Word Category
+            </label>
+            <div class="select-wrapper">
+              <select id="category-select">
+                <option value="animals">🦁 Animals</option>
+                <option value="food">🍕 Food</option>
+                <option value="movies">🎬 Movies</option>
+                <option value="countries">🌍 Countries</option>
+                <option value="sports">⚽ Sports</option>
+                <option value="objects">📦 Objects</option>
+                <option value="jobs">💼 Jobs</option>
+                <option value="vehicles">🚗 Vehicles</option>
+                <option value="places">🏠 Places</option>
+                <option value="random">🎲 Random Mix</option>
+              </select>
+              <span class="select-arrow">▼</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-icon">🎭</span>
+              Number of Imposters: <span id="imposter-count-display" class="highlight">1</span>
+            </label>
+            <div class="slider-container">
+              <input type="range" id="imposter-count" min="1" max="3" value="1" class="slider">
+              <div class="slider-labels">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-icon">⏱️</span>
+              Game Duration: <span id="timer-display" class="highlight">5</span> min
+            </label>
+            <div class="slider-container">
+              <input type="range" id="timer-select" min="3" max="15" value="5" step="1" class="slider">
+              <div class="slider-labels">
+                <span>3m</span>
+                <span>7m</span>
+                <span>11m</span>
+                <span>15m</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-modern">
+          <div class="players-header">
+            <h3><span class="label-icon">👥</span> Players</h3>
+            <span class="player-count"><span id="player-count-num">0</span>/12</span>
+          </div>
+          <div class="player-input-modern">
+            <input type="text" id="player-name-input" placeholder="Enter player name..." maxlength="20">
+            <button id="add-player-btn" class="btn-add">+</button>
+          </div>
+          <ul id="player-list" class="player-list-modern"></ul>
+        </div>
+
+        <button id="begin-game-btn" class="btn-main btn-full" disabled>
+          🎮 Begin Game
+        </button>
+      </div>
+    </section>
+
+    <!-- Role Reveal Screen -->
+    <section id="reveal-screen" class="screen">
+      <div class="reveal-container">
+        <div class="reveal-header">
+          <span class="reveal-step">Player <span id="reveal-current">1</span> of <span id="reveal-total">4</span></span>
+        </div>
+        
+        <div class="flip-card" id="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="card-avatar">👤</div>
+              <p class="card-name" id="reveal-player-name"></p>
+              <p class="card-hint">Tap to reveal your secret word</p>
+            </div>
+            <div class="flip-card-back">
+              <div class="role-badge" id="reveal-role-label"></div>
+              <p class="secret-word-display" id="reveal-word"></p>
+              <p class="word-hint">Your secret word</p>
+            </div>
+          </div>
+        </div>
+
+        <button id="next-player-btn" class="btn-main btn-full">
+          Next Player →
+        </button>
+      </div>
+    </section>
+
+    <!-- Gameplay Screen -->
+    <section id="gameplay-screen" class="screen">
+      <div class="game-header">
+        <div class="round-badge">Round <span id="current-round">1</span></div>
+        <div class="timer-pill">
+          <span id="timer-text">5:00</span>
+        </div>
+      </div>
+      
+      <div class="game-timer-bar">
+        <div id="timer-fill" class="timer-fill"></div>
+      </div>
+
+      <div class="card-modern game-card">
+        <div class="current-player-badge">
+          <span class="player-avatar">👤</span>
+          <span id="current-player-name"></span>
+        </div>
+        <p class="clue-prompt">Give a <strong>one-word</strong> clue about your word!</p>
+        <div class="clue-input-wrapper">
+          <input type="text" id="clue-input" class="clue-input-modern" placeholder="Your clue..." autocomplete="off" maxlength="20">
+        </div>
+        <button id="submit-clue-btn" class="btn-main">
+          Submit Clue
+        </button>
+      </div>
+
+      <div class="clues-panel">
+        <h3>📝 Clues Given</h3>
+        <ul id="clues-list" class="clues-list-modern"></ul>
+      </div>
+    </section>
+
+    <!-- Discussion Screen -->
+    <section id="discussion-screen" class="screen">
+      <div class="discussion-container">
+        <div class="discussion-icon">💬</div>
+        <h2>Discussion Time</h2>
+        <p class="discussion-subtitle">Talk amongst yourselves and figure out who the imposters are!</p>
+        <div class="timer-circle">
+          <span id="discussion-timer">3:00</span>
+        </div>
+        <button id="start-vote-btn" class="btn-main btn-full">
+          🗳️ Start Voting
+        </button>
+      </div>
+    </section>
+
+    <!-- Voting Screen -->
+    <section id="voting-screen" class="screen">
+      <div class="vote-container">
+        <div class="vote-header">
+          <span class="voter-badge" id="voter-name"></span>
+          <p class="vote-prompt">Who do you think is the imposter?</p>
+        </div>
+        <ul id="vote-list" class="vote-list-modern"></ul>
+      </div>
+    </section>
+
+    <!-- Vote Results Screen -->
+    <section id="vote-results-screen" class="screen">
+      <div class="results-container">
+        <div class="results-header">
+          <h2>🗳️ Vote Results</h2>
+        </div>
+        <div id="vote-results-content" class="results-content"></div>
+        <button id="continue-btn" class="btn-main btn-full">
+          Continue →
+        </button>
+      </div>
+    </section>
+
+    <!-- Results Screen -->
+    <section id="results-screen" class="screen">
+      <div class="final-results">
+        <div class="result-icon" id="result-icon">🏆</div>
+        <h1 class="result-title" id="result-title"></h1>
+        <div class="result-details" id="result-content"></div>
+        <button id="play-again-btn" class="btn-main btn-full">
+          🔄 Play Again
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
