@@ -280,10 +280,9 @@
       </div>
     </section>
 
-    <!-- Gameplay Screen -->
+    <!-- Gameplay Screen (simplified - goes to discussion) -->
     <section id="gameplay-screen" class="screen">
       <div class="game-header">
-        <div class="round-badge">Round <span id="current-round">1</span></div>
         <div class="timer-pill">
           <span id="timer-text">5:00</span>
         </div>
@@ -293,32 +292,18 @@
         <div id="timer-fill" class="timer-fill"></div>
       </div>
 
-      <div class="card-modern game-card">
-        <div class="current-player-badge">
-          <span class="player-avatar">👤</span>
-          <span id="current-player-name"></span>
-        </div>
-        <p class="clue-prompt">Give a <strong>one-word</strong> clue about your word!</p>
-        <div class="clue-input-wrapper">
-          <input type="text" id="clue-input" class="clue-input-modern" placeholder="Your clue..." autocomplete="off" maxlength="20">
-        </div>
-        <button id="submit-clue-btn" class="btn-main">
-          Submit Clue
-        </button>
-      </div>
-
-      <div class="clues-panel">
-        <h3>📝 Clues Given</h3>
-        <ul id="clues-list" class="clues-list-modern"></ul>
+      <div class="card-modern game-card" style="text-align: center; padding: 3rem 2rem;">
+        <h2 style="margin-bottom: 1rem;">🎭 Find the Imposter!</h2>
+        <p style="color: var(--dark-soft);">Think about who might have a different word. Look for players who seem confused or don't know what the word is!</p>
       </div>
     </section>
 
     <!-- Discussion Screen -->
     <section id="discussion-screen" class="screen">
       <div class="discussion-container">
-        <div class="discussion-icon">💬</div>
-        <h2>Discussion Time</h2>
-        <p class="discussion-subtitle">Talk amongst yourselves and figure out who the imposters are!</p>
+        <div class="discussion-icon">🕵️‍♀️</div>
+        <h2>Find the Imposter!</h2>
+        <p class="discussion-subtitle">Who has a different word? Discuss and figure out who the imposter is!</p>
         <div class="timer-circle">
           <span id="discussion-timer">3:00</span>
         </div>

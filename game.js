@@ -316,25 +316,17 @@ nextPlayerBtn.addEventListener('click', () => {
     gameState.currentPlayerIndex++;
     showRevealCard();
   } else {
-    startGameplay();
+    startDiscussion();
   }
 });
 
-// Gameplay Screen
+// Gameplay Screen - simplified (no clues)
 const timerFill = document.getElementById('timer-fill');
 const timerText = document.getElementById('timer-text');
-const currentRoundSpan = document.getElementById('current-round');
-const currentPlayerName = document.getElementById('current-player-name');
-const clueInput = document.getElementById('clue-input');
-const submitClueBtn = document.getElementById('submit-clue-btn');
-const cluesList = document.getElementById('clues-list');
 
+// Skip gameplay - go straight to discussion
 function startGameplay() {
-  showScreen('gameplay');
-  gameState.currentPlayerIndex = 0;
-  gameState.clues = [];
-  startTimer();
-  showCurrentPlayer();
+  startDiscussion();
 }
 
 function startTimer() {
@@ -347,7 +339,6 @@ function startTimer() {
     
     if (gameState.timeRemaining <= 0) {
       clearInterval(gameState.timerInterval);
-      endCluePhase();
     }
   }, 1000);
 }
@@ -361,72 +352,7 @@ function updateTimerDisplay() {
   timerFill.style.width = `${percentage}%`;
 }
 
-function showCurrentPlayer() {
-  currentRoundSpan.textContent = gameState.currentRound;
-  const player = gameState.players[gameState.currentPlayerName];
-  currentPlayerName.textContent = player.name;
-  clueInput.value = '';
-  clueInput.focus();
-}
-
-function showCurrentPlayer() {
-  // Skip eliminated players
-  while (gameState.currentPlayerIndex < gameState.players.length && 
-         gameState.players[gameState.currentPlayerIndex].eliminated) {
-    gameState.currentPlayerIndex++;
-  }
-  
-  if (gameState.currentPlayerIndex >= gameState.players.length) {
-    endCluePhase();
-    return;
-  }
-  
-  currentRoundSpan.textContent = gameState.currentRound;
-  const player = gameState.players[gameState.currentPlayerIndex];
-  currentPlayerName.textContent = player.name;
-  clueInput.value = '';
-  clueInput.focus();
-}
-
-submitClueBtn.addEventListener('click', submitClue);
-clueInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') submitClue();
-});
-
-function submitClue() {
-  const clue = clueInput.value.trim();
-  if (!clue) return;
-  
-  gameState.clues.push({
-    playerIndex: gameState.currentPlayerIndex,
-    playerName: gameState.players[gameState.currentPlayerIndex].name,
-    clue: clue
-  });
-  
-  renderClues();
-  
-  if (gameState.currentPlayerIndex < gameState.players.length - 1) {
-    gameState.currentPlayerIndex++;
-    showCurrentPlayer();
-  } else {
-    endCluePhase();
-  }
-}
-
-function renderClues() {
-  cluesList.innerHTML = gameState.clues.map(c => `
-    <li>
-      <span class="player-name">${c.playerName}</span>
-      <span class="clue-text">"${c.clue}"</span>
-    </li>
-  `).join('');
-}
-
-function endCluePhase() {
-  clearInterval(gameState.timerInterval);
-  showScreen('discussion');
-  startDiscussion();
-}
+// Discussion Screen starts directly from reveal
 
 // Discussion Screen
 const discussionTimerDisplay = document.getElementById('discussion-timer');
