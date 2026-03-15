@@ -1,0 +1,21 @@
+{
+  "name": "Maya's Imposter Game",
+  "short_name": "Maya",
+  "description": "Find the imposter before it's too late!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3e8ff",
+  "theme_color": "#b57edc",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
