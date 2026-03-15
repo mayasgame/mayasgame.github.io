@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var menuBtn = document.querySelector('.mobile-menu-btn');
   if (menuBtn) {
     menuBtn.addEventListener('click', function() {
-      var cs = window.getComputedStyle(menu).display;
-      menu.style.display = cs === 'flex' ? 'none' : 'flex';
+      menu.classList.toggle('active');
+      menuBtn.classList.toggle('active');
     });
   }
 
