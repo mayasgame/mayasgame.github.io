@@ -361,6 +361,7 @@ const startVoteBtn = document.getElementById('start-vote-btn');
 let discussionTime = 180;
 
 function startDiscussion() {
+  showScreen('discussion');
   discussionTime = 180;
   discussionTimerDisplay.textContent = formatTime(discussionTime);
   
@@ -414,23 +415,33 @@ function showVotingForPlayer() {
   
   const activePlayers = gameState.players.filter((p, i) => !p.eliminated && i !== currentVoterIndex);
   
-  voteList.innerHTML = activePlayers.map((player, index) => `
-    <li data-index="${gameState.players.indexOf(player)}">${player.name}</li>
-  `).join('');
+  if (activePlayers.length === 0) {
+    showVoteResults();
+    return;
+  }
   
-  document.querySelectorAll('.vote-list-modern li').forEach(li => {
-    li.addEventListener('click', (e) => {
-      const votedIndex = parseInt(e.target.dataset.index);
+  // Clear and rebuild vote list
+  voteList.innerHTML = '';
+  
+  activePlayers.forEach(player => {
+    const playerIndex = gameState.players.indexOf(player);
+    const li = document.createElement('li');
+    li.textContent = player.name;
+    li.dataset.index = playerIndex;
+    li.style.cursor = 'pointer';
+    li.style.pointerEvents = 'auto';
+    li.onclick = function() {
+      const votedIndex = parseInt(this.dataset.index);
       gameState.votingComplete.push({
         voterIndex: currentVoterIndex,
         votedForIndex: votedIndex,
         voterName: gameState.players[currentVoterIndex].name,
         votedForName: gameState.players[votedIndex].name
       });
-      
       currentVoterIndex++;
       showVotingForPlayer();
-    });
+    };
+    voteList.appendChild(li);
   });
 }
 
@@ -451,15 +462,20 @@ function showVoteResults() {
     .map(([index, count]) => ({ index: parseInt(index), count }));
   
   let resultsHTML = '';
-  sortedVotes.forEach(v => {
-    const player = gameState.players[v.index];
-    const isImposter = player.isImposter;
-    resultsHTML += `
-      <p style="padding: 12px; background: ${isImposter ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.05)'}; border-radius: 10px; margin-bottom: 8px;">
-        <strong>${player.name}</strong> — ${v.count} vote${v.count > 1 ? 's' : ''} ${isImposter ? '🎭' : ''}
-      </p>
-    `;
-  });
+  
+  if (sortedVotes.length === 0) {
+    resultsHTML = '<p style="text-align: center;">No votes recorded</p>';
+  } else {
+    sortedVotes.forEach(v => {
+      const player = gameState.players[v.index];
+      const isImposter = player.isImposter;
+      resultsHTML += `
+        <p style="padding: 12px; background: ${isImposter ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.05)'}; border-radius: 10px; margin-bottom: 8px;">
+          <strong>${player.name}</strong> — ${v.count} vote${v.count > 1 ? 's' : ''} ${isImposter ? '🎭' : ''}
+        </p>
+      `;
+    });
+  }
   
   // Find eliminated player
   const eliminatedIndex = sortedVotes[0]?.index;
@@ -488,8 +504,8 @@ function showVoteResults() {
       showResults(false);
     } else {
       gameState.currentRound++;
-      gameState.clues = [];
-      startGameplay();
+      showScreen('discussion');
+      startDiscussion();
     }
   };
 }
@@ -518,7 +534,7 @@ function showResults(civiliansWin) {
   
   resultContent.innerHTML = `
     <p>🎭 Imposters: <strong>${impostersList}</strong></p>
-    <p>✅ Civilians: <strong>civiliansList</strong></p>
+    <p>✅ Civilians: <strong>${civiliansList}</strong></p>
   `;
 }
 
