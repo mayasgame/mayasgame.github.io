@@ -191,7 +191,6 @@ body::before {
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .mobile-menu-btn { display: flex; }
-  .mobile-menu { display: flex; }
 }
 
 /* ============================================

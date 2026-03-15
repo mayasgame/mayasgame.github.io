@@ -128,10 +128,15 @@ document.querySelectorAll('[data-screen]').forEach(el => {
   });
 });
 
-// Mobile menu
-document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+// Mobile menu - ensure it's hidden on load
+document.addEventListener('DOMContentLoaded', () => {
   const menu = document.querySelector('.mobile-menu');
-  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  if (menu) menu.style.display = 'none';
+  
+  document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+    const isFlex = menu.style.display === 'flex';
+    menu.style.display = isFlex ? 'none' : 'flex';
+  });
 });
 
 // Setup Screen
