@@ -364,6 +364,9 @@ body::before {
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(181, 126, 220, 0.4);
   text-decoration: none;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .btn-main:hover {
@@ -813,6 +816,8 @@ body::before {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .reveal-header {
