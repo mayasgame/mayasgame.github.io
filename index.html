@@ -20,8 +20,9 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo">
-        <!-- <span class="logo-icon">🎭</span> -->
-        <span class="logo-text">Maya's <span class="accent">Imposter Game</span></span>
+        <a href="#" data-screen="home" class="logo-link">
+          <span class="logo-text">Maya's <span class="accent">Imposter Game</span></span>
+        </a>
       </div>
       <ul class="nav-links">
         <li><a href="#" class="nav-link active" data-screen="home">Home</a></li>
@@ -108,14 +109,9 @@
             <p>Most players get the same word. The imposter gets a different one!</p>
           </div>
           <div class="feature-card">
-            <div class="feature-icon">💡</div>
-            <h3>Give Clues</h3>
-            <p>Each player gives one-word clues about their word without revealing it.</p>
-          </div>
-          <div class="feature-card">
             <div class="feature-icon">🗳️</div>
             <h3>Vote & Win</h3>
-            <p>Discuss, vote to eliminate suspects. Civilians win if imposters found!</p>
+            <p>Discuss, vote to find the imposter. Players who voted correctly win!</p>
           </div>
         </div>
       </div>
@@ -146,22 +142,15 @@
           <div class="rule-card">
             <div class="rule-number">03</div>
             <div class="rule-content">
-              <h3>Give Clues</h3>
-              <p>Players take turns giving ONE-word clues about their secret word. Be clever but don't give it away!</p>
+              <h3>Discussion Time</h3>
+              <p>Talk with other players. Use your words to figure out who doesn't have the same word as you.</p>
             </div>
           </div>
           <div class="rule-card">
             <div class="rule-number">04</div>
             <div class="rule-content">
-              <h3>Discussion Time</h3>
-              <p>Talk with other players. Use the clues to figure out who doesn't know the real word.</p>
-            </div>
-          </div>
-          <div class="rule-card">
-            <div class="rule-number">05</div>
-            <div class="rule-content">
               <h3>Vote & Win</h3>
-              <p>Vote to eliminate who you think is the imposter. Civilians win if all imposters are found!</p>
+              <p>Vote for who you think is the imposter. Players who voted correctly win!</p>
             </div>
           </div>
         </div>
@@ -349,6 +338,9 @@
       </div>
     </section>
   </main>
+
+  <div class="version-number">v1.0</div>
+  <a href="https://schnalz.net" target="_blank" class="developed-by">Developed by Schnalz.net</a>
 
   <script src="game.js"></script>
 </body>

@@ -25,8 +25,7 @@ let gameState = {
   clues: [],
   timeRemaining: 0,
   timerInterval: null,
-  votingComplete: [],
-  eliminatedPlayers: []
+  votingComplete: []
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -156,14 +155,13 @@ document.addEventListener('DOMContentLoaded', function() {
     gameState.currentPlayerIndex = 0;
     gameState.clues = [];
     gameState.votingComplete = [];
-    gameState.eliminatedPlayers = [];
 
     var words = getCategoryWords(gameState.category);
     var mainWord = words[0];
     var similar = { animals: ['Cat','Dog','Mouse','Bird','Fish'], food: ['Pizza','Pasta','Rice','Bread','Cake'], movies: ['Titanic','Avatar','Frozen','Spider-Man','Batman'], countries: ['USA','China','India','Japan','France'], sports: ['Soccer','Basketball','Tennis','Golf','Swimming'], objects: ['Phone','Chair','Table','Lamp','Book'], jobs: ['Doctor','Teacher','Engineer','Chef','Pilot'], vehicles: ['Car','Bus','Train','Boat','Bike'], places: ['Beach','Mountain','Park','School','Mall'] };
     var impWord = (similar[gameState.category] || words.slice(1,5))[Math.floor(Math.random() * 5)];
 
-    gameState.players.forEach(function(p) { p.isImposter = false; p.eliminated = false; });
+    gameState.players.forEach(function(p) { p.isImposter = false; });
     gameState.words = gameState.players.map(function() { return mainWord; });
     var idxs = shuffleArray([0,1,2,3,4,5,6,7,8,9,10,11].slice(0, gameState.players.length));
     for (var i = 0; i < gameState.imposterCount; i++) {
@@ -261,13 +259,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function showVotingForPlayer() {
-    while (currentVoterIndex < gameState.players.length && gameState.players[currentVoterIndex].eliminated) currentVoterIndex++;
     if (currentVoterIndex >= gameState.players.length) { showVoteResults(); return; }
     voterName.textContent = gameState.players[currentVoterIndex].name;
-    var active = gameState.players.filter(function(p, i) { return !p.eliminated && i !== currentVoterIndex; });
-    if (active.length === 0) { showVoteResults(); return; }
+    var others = gameState.players.filter(function(p, i) { return i !== currentVoterIndex; });
+    if (others.length === 0) { showVoteResults(); return; }
     voteList.innerHTML = '';
-    active.forEach(function(player) {
+    others.forEach(function(player) {
       var pi = gameState.players.indexOf(player);
       var li = document.createElement('li');
       li.textContent = player.name;
@@ -301,20 +298,31 @@ document.addEventListener('DOMContentLoaded', function() {
       var pl = gameState.players[v.index];
       html += '<p style="padding:12px;background:' + (pl.isImposter ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.05)') + ';border-radius:10px;margin-bottom:8px"><strong>' + pl.name + '</strong> — ' + v.count + ' vote' + (v.count>1?'s':'') + (pl.isImposter?' 🎭':'') + '</p>';
     });
-    if (sorted[0]) {
-      var elimIdx = sorted[0].index;
-      var elimPl = gameState.players[elimIdx];
-      elimPl.eliminated = true;
-      gameState.eliminatedPlayers.push(elimIdx);
-      html += '<p style="text-align:center;margin-top:15px;padding:12px;background:rgba(239,68,68,0.15);border-radius:10px"><strong>' + elimPl.name + '</strong> has been eliminated!</p>';
+    
+    var imposterIndices = gameState.players.filter(function(p) { return p.isImposter; }).map(function(p) { return gameState.players.indexOf(p); });
+    var correctVoters = [];
+    var incorrectVoters = [];
+    gameState.votingComplete.forEach(function(v) {
+      if (imposterIndices.includes(v.votedForIndex)) {
+        correctVoters.push(v.voterName);
+      } else {
+        incorrectVoters.push(v.voterName);
+      }
+    });
+    
+    var imps = gameState.players.filter(function(p){return p.isImposter}).map(function(p){return p.name}).join(', ');
+    html += '<p style="text-align:center;margin-top:15px;padding:12px;background:rgba(239,68,68,0.15);border-radius:10px"><strong>Imposters: ' + imps + '</strong></p>';
+    
+    if (correctVoters.length > 0) {
+      html += '<p style="text-align:center;margin-top:10px;padding:12px;background:rgba(34,197,94,0.15);border-radius:10px"><strong>Correct Voters: ' + correctVoters.join(', ') + '</strong></p>';
     }
+    if (incorrectVoters.length > 0) {
+      html += '<p style="text-align:center;margin-top:10px;padding:12px;rgba(255,255,255,0.05);border-radius:10px"><strong>Incorrect Voters: ' + incorrectVoters.join(', ') + '</strong></p>';
+    }
+    
     voteResultsContent.innerHTML = html;
-    var remImp = gameState.players.filter(function(p){return p.isImposter && !p.eliminated}).length;
-    var remCiv = gameState.players.filter(function(p){return !p.isImposter && !p.eliminated}).length;
     continueBtn.onclick = function() {
-      if (remImp === 0) showResults(true);
-      else if (remImp >= remCiv) showResults(false);
-      else { gameState.currentRound++; showScreen('discussion'); startDiscussion(); }
+      showResults(correctVoters);
     };
   }
 
@@ -323,14 +331,22 @@ document.addEventListener('DOMContentLoaded', function() {
   var resultIcon = document.getElementById('result-icon');
   var playAgainBtn = document.getElementById('play-again-btn');
 
-  function showResults(civWin) {
+  function showResults(correctVoters) {
     showScreen('results');
-    resultIcon.textContent = civWin ? '🎉' : '🎭';
-    resultTitle.textContent = civWin ? 'Civilians Win!' : 'Imposters Win!';
-    resultTitle.className = 'result-title ' + (civWin ? 'civilians-win' : 'imposters-win');
     var imps = gameState.players.filter(function(p){return p.isImposter}).map(function(p){return p.name}).join(', ');
-    var cogs = gameState.players.filter(function(p){return !p.isImposter}).map(function(p){return p.name}).join(', ');
-    resultContent.innerHTML = '<p>🎭 Imposters: <strong>' + imps + '</strong></p><p>✅ Civilians: <strong>' + cogs + '</strong></p>';
+    var allPlayers = gameState.players.map(function(p){return p.name}).join(', ');
+    
+    if (correctVoters.length > 0) {
+      resultIcon.textContent = '🏆';
+      resultTitle.textContent = 'Correct Voters Win!';
+      resultTitle.className = 'result-title civilians-win';
+      resultContent.innerHTML = '<p>🎭 Imposters: <strong>' + imps + '</strong></p><p>✅ Correct Voters: <strong>' + correctVoters.join(', ') + '</strong></p>';
+    } else {
+      resultIcon.textContent = '🎭';
+      resultTitle.textContent = 'Imposters Win!';
+      resultTitle.className = 'result-title imposters-win';
+      resultContent.innerHTML = '<p>🎭 Imposters: <strong>' + imps + '</strong></p><p>✅ All Players: <strong>' + allPlayers + '</strong></p>';
+    }
   }
 
   playAgainBtn.addEventListener('click', function() {
@@ -338,7 +354,6 @@ document.addEventListener('DOMContentLoaded', function() {
     gameState.currentRound = 1;
     gameState.clues = [];
     gameState.votingComplete = [];
-    gameState.eliminatedPlayers = [];
     renderPlayerList();
     showScreen('home');
   });
