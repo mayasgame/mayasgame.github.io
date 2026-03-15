@@ -100,7 +100,10 @@ function showScreen(screenName) {
   });
   
   // Hide mobile menu
-  document.querySelector('.mobile-menu').style.display = 'none';
+  const menu = document.querySelector('.mobile-menu');
+  const menuBtn = document.querySelector('.mobile-menu-btn');
+  if (menu) menu.classList.remove('active');
+  if (menuBtn) menuBtn.classList.remove('active');
 }
 
 function shuffleArray(array) {
@@ -131,12 +134,22 @@ document.querySelectorAll('[data-screen]').forEach(el => {
 // Mobile menu - ensure it's hidden on load
 document.addEventListener('DOMContentLoaded', () => {
   const menu = document.querySelector('.mobile-menu');
-  if (menu) menu.style.display = 'none';
+  const menuBtn = document.querySelector('.mobile-menu-btn');
   
-  document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
-    const isFlex = menu.style.display === 'flex';
-    menu.style.display = isFlex ? 'none' : 'flex';
-  });
+  // Function to toggle menu with animation
+  const toggleMenu = () => {
+    menu.classList.toggle('active');
+    menuBtn.classList.toggle('active');
+  };
+  
+  if (menuBtn) {
+    menuBtn.addEventListener('click', toggleMenu);
+  }
+  
+  // Ensure menu starts hidden
+  if (menu) {
+    menu.style.display = '';
+  }
 });
 
 // Setup Screen
